@@ -54,20 +54,17 @@ for developing state-of-the-art deep learning models on a wide variety of lingui
 </table>
 
 ## Installation
-
-AllenNLP requires Python 3.6.1 or later. The preferred way to install AllenNLP is via `pip`.  Just run `pip install allennlp` in your Python environment and you're good to go!
-
-If you need pointers on setting up an appropriate Python environment or would like to install AllenNLP using a different method, see below.
-
+AllenNLP需要Python 3.6.1或更高版本。安装AllenNLP的首选方法是通过“pip”。只要在Python环境中运行'pip install allennlp'，就可以了！
+如果您需要关于设置适当Python环境的指针，或者希望使用不同的方法安装AllenNLP，请参见下面的内容。
 Windows is currently not officially supported, although we try to fix issues when they are easily addressed.
 
 ### Installing via pip
 
 #### Setting up a virtual environment
 
-[Conda](https://conda.io/) can be used set up a virtual environment with the
-version of Python required for AllenNLP.  If you already have a Python 3.6 or 3.7
-environment you want to use, you can skip to the 'installing via pip' section.
+AllenNLP需要Python 3.6.1或更高版本。安装AllenNLP的首选方法是通过“pip”。
+只要在Python环境中运行'pip install allennlp'，就可以了！如果您需要关于设置适当Python环境的指针，或者希望使用不同的方法安装AllenNLP，请参见下面的内容。
+Windows目前不受官方支持，尽管我们试图在问题容易解决时修复它们。
 
 1.  [Download and install Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
@@ -76,23 +73,21 @@ environment you want to use, you can skip to the 'installing via pip' section.
     ```bash
     conda create -n allennlp python=3.6
     ```
-
-3.  Activate the Conda environment. You will need to activate the Conda environment in each terminal in which you want to use AllenNLP.
-
+    
+3.  激活Conda环境。您需要在要使用AllenNLP的每个终端中激活Conda环境。
     ```bash
     source activate allennlp
     ```
 
 #### Installing the library and dependencies
 
-Installing the library and dependencies is simple using `pip`.
+使用“pip”安装库和依赖项很简单。
 
    ```bash
    pip install allennlp
    ```
-
-That's it! You're now ready to build and train AllenNLP models.
-AllenNLP installs a script when you install the python package, meaning you can run allennlp commands just by typing `allennlp` into a terminal.
+就这样！现在，您已经准备好构建和训练AllenNLP模型。
+AllenNLP在安装python包时安装脚本，这意味着您只需在终端中键入“AllenNLP”即可运行AllenNLP命令。
 
 You can now test your installation with `allennlp test-install`.
 
@@ -101,13 +96,11 @@ please visit https://pytorch.org/ and install the relevant pytorch binary._
 
 ### Installing using Docker
 
-Docker provides a virtual machine with everything set up to run AllenNLP--
-whether you will leverage a GPU or just run on a CPU.  Docker provides more
-isolation and consistency, and also makes it easy to distribute your
-environment to a compute cluster.
+Docker为虚拟机提供了运行AllenNLP的所有设置--无论您是使用GPU还是仅在CPU上运行。
+Docker提供了更多的隔离性和一致性，还使您可以轻松地将环境分发到计算集群。
 
 Once you have [installed Docker](https://docs.docker.com/engine/installation/)
-just run the following command to get an environment that will run on either the cpu or gpu.
+只需运行以下命令即可获得将在cpu或gpu上运行的环境。
 
    ```bash
    mkdir -p $HOME/.allennlp/

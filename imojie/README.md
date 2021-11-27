@@ -1,36 +1,35 @@
 # IMoJIE
 
-Iterative Memory based Joint OpenIE
-
-A BERT-based OpenIE system that generates extraction using an iterative Seq2Seq model, as described in the following publication, in ACL 2020, [link](https://arxiv.org/abs/2005.08178)
+基于迭代记忆的联合OpenIE Iterative Memory based Joint OpenIE
+一个BERT-base的OpenIE系统，使用迭代Seq2Seq模型生成提取，如以下出版物所述，在ACL 2020中，[链接](https://arxiv.org/abs/2005.08178)
 
 ## Installation Instructions
 Use a python-3.6 environment and install the dependencies using,
 ```
 pip install -r requirements.txt
 ```
-This will install custom versions of allennlp and pytorch_transformers based on the code in the folder.
+这将根据文件夹中的代码安装自定义版本的allennlp和pytorch_transformers。
+所有报告的结果都是基于在TeslaV100 GPU（CUDA 10.0）上运行的pytorch-1.2。结果可能随着环境的变化而略有不同。
 
-All reported results are based on pytorch-1.2 run on a TeslaV100 GPU (CUDA 10.0). Results may vary slightly with change in environment.
-
-## Execution Instructions
+## 执行说明
 ### Data Download
 bash download_data.sh 
 
-This downloads the (train, dev, test) data
+这将下载（训练、开发、测试）数据
 
-### Running the code
+### 运行代码
+
 IMoJIE (on OpenIE-4, ClausIE, RnnOIE bootstrapping data with QPBO filtering)
 ```
 python allennlp_script.py --param_path imojie/configs/imojie.json --s models/imojie --mode train_test 
 ```
 
 Arguments:
-- param_path: file containing all the parameters for the model
-- s:  path of the directory where the model will be saved
+- param_path: 包含模型所有参数的文件
+- s:  将保存模型的目录的路径
 - mode: train, test, train_test
 
-Important baselines:
+重要基线：
 
 IMoJIE (on OpenIE-4 bootstrapping)
 ```
@@ -42,7 +41,7 @@ CopyAttn+BERT (on OpenIE-4 bootstrapping)
 python allennlp_script.py --param_path imojie/configs/be.json --s models/be --mode train_test --type single --beam_size 3
 ```
 
-### Generating aggregated data
+### 生成聚合数据
 
 Score using bert_encoder trained on oie4: 
 ```
@@ -60,7 +59,7 @@ python imojie/aggregate/filter.py --inp_fp data/train/4cr_comb_extractions.tsv.b
 ```
 
 ### Note on the notation
-We have been internally calling our model as "bert-append" (ba) until the day of submission of the paper and CopyAttention + BERT as "bert-encoder" (be). So you will find similar references throughout the code-base. In this context, IMoJIE is bert-append trained on qpbo filtered data.
+我们一直在内部称我们的模型为“bert append”（ba），直到论文提交之日，CopyAttention+bert称为“bert编码器”（be）。因此，您将在整个代码库中找到类似的引用。在这种情况下，IMoJIE是基于qpbo过滤数据进行训练的。
 
 ### Expected Results
 Format: (Prec/Rec/F1-Optimal, AUC, Prec/Rec/F1-Last)
@@ -78,7 +77,7 @@ models/be/test/carb_3/best_results.txt \
 
 ## Resources
 
-Downloading the pre-trained models:
+下载预训练的模型：
 ```
 zenodo_get 3779954
 ```

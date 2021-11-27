@@ -5,7 +5,7 @@ CaRB : ***C***rowdsourced ***a***utomatic open ***R***elation extraction ***B***
 
 ## Introduction
 
-CaRB is a dataset cum evaluation framework for benchmarking Open Information Extraction systems.
+CaRB是一个数据集兼评估框架，用于对开放信息提取系统进行基准测试。
 
 The details of this benchmark are elaborated in our [EMNLP 2019 Paper](https://www.aclweb.org/anthology/D19-1651/).
 
@@ -42,7 +42,7 @@ Leave us a note at
 
 ## Evaluating an Open IE Extractor
 
-Currently, we support the following Open IE output formats:
+目前，我们支持以下Open IE的输出格式。
 
 * [ClausIE](https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/software/clausie/)
 * [OLLIE](http://knowitall.github.io/ollie/)
@@ -54,11 +54,13 @@ Currently, we support the following Open IE output formats:
 * Tab Separated - Read simple tab format file, where each line consists of:
                                 sent, prob, pred,arg1, arg2, ...
 
-To evaluate your OpenIE system:
+要评估你的OpenIE系统。
 
-1. Run your extractor over the [dev sentences](data/dev.txt) or [test sentences](data/test.txt) and store the output into "*your_output*.txt"
+1. 在[dev sentences](data/dev.txt)或[test sentences](data/test.txt)上运行你的提取器，并将输出存入 "*your_output*.txt"
 
-2. Depending on your output format, you can get a precision-recall curve by running [carb.py](carb.py):
+2. 根据你的输出格式，你可以通过运行[carb.py](carb.py)得到一个精确-召回曲线。
+
+
 ``` 
 Usage:
    python carb.py --gold=GOLD_OIE --out=OUTPUT_FILE (--stanford=STANFORD_OIE | --ollie=OLLIE_OIE |--reverb=REVERB_OIE | --clausie=CLAUSIE_OIE | --openiefour=OPENIEFOUR_OIE | --props=PROPS_OIE)
@@ -76,12 +78,12 @@ Options:
   --tabbed=TABBED_OIE		   Read tabbed format from file TABBED_OIE
 ```
 
-## Evaluating Existing Systems
+## 评估现有的系统
 
-In the course of this work we tested the above mentioned Open IE parsers against our benchmark.
-We provide the output files (i.e., Open IE extractions) of each of these
-systems in [system_outputs/test](system_outputs/test).
-You can give each of these files to [carb.py](carb.py), to get the corresponding precision recall curve.
+在这项工作中，我们根据我们的基准测试了上述的Open IE解析器。
+我们在[system_outputs/test](system_outputs/test)中提供了这些系统的输出文件(即Open IE的提取)。
+系统的输出文件（即Open IE提取物）。
+你可以把这些文件分别交给[carb.py](carb.py)，以获得相应的精度召回曲线。
 
 For example, to evaluate Stanford Open IE output, run:
 ```

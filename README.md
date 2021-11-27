@@ -15,11 +15,10 @@ pip install -r requirements.txt
 python -m nltk.downloader stopwords
 python -m nltk.downloader punkt 
 ```
+所有结果都是在使用CUDA 10.0的V100 GPU上获得的。
+注意：HuggingFacetransformer==2.6.0是必要的。最新版本在代码中使用tokenizer的方式有一个突破性的变化。它不会引发错误，但会给出错误的结果
 
-All results have been obtained on V100 GPU with CUDA 10.0
-NOTE: HuggingFace transformers==2.6.0 is necessary. The latest version has a breaking change in the way tokenizer is used in the code. It will not raise an error but will give wrong results!
-
-## Download Resources
+## 下载资源
 Download Data (50 MB)
 ```
 zenodo_get 4054476
@@ -39,7 +38,7 @@ wget www.cse.iitd.ac.in/~kskeshav/rescore_model.tar.gz
 tar -xvf rescore_model.tar.gz
 mv rescore_model models/ -->
 
-## Running Model
+## 运行模型
 
 New command:
 ```
@@ -62,35 +61,35 @@ Additional flags -
 --type sentences // outputs decomposed sentences to the file path `out`+'.sentences'
 ```
 
-Additional Notes:
+补充说明。
 
-1. The model is trained with tokenized sentences and hence requires tokenized sentences during prediction as well. The code currently uses nltk tokenization for this purpose. This will lead to the final sentences being different from the input sentences, as they will be the tokenized version. If this is not desirable you can comment the nltk tokenization in data.py and make sure that your sentences are tokenized beforehand.
-2. Due to an artifact of training data in conjunction model, it requires the sentence to end with full stop to function correctly.   
+1. 该模型是用tokenized的句子训练的，因此在预测过程中也需要tokenized的句子。该代码目前使用nltk tokenization来实现这一目的。这将导致最终的句子与输入的句子不同，因为它们将是tokenization的版本。如果这不可取，你可以在data.py中注释nltk tokenization，并确保你的句子事先被tokenize。
+2. 由于连接模型的训练数据的缺陷，它要求句子以句号结尾才能正常运行。
 
 
-## Training Model
+## 训练模型
 
 ### Warmup Model
-Training:
+训练:
 ```
 python run.py --save models/warmup_oie_model --mode train_test --model_str bert-base-cased --task oie --epochs 30 --gpus 1 --batch_size 24 --optimizer adamW --lr 2e-05 --iterative_layers 2
 ```
 
-Testing:
+测试:
 ```
 python run.py --save models/warmup_oie_model --mode test --batch_size 24 --model_str bert-base-cased --task oie --gpus 1
 ```
 Carb F1: 52.4, Carb AUC: 33.8
 
 
-Predicting
+预测
 ```
 python run.py --save models/warmup_oie_model --mode predict --model_str bert-base-cased --task oie --gpus 1 --inp sentences.txt --out predictions.txt
 ```
 
 Time (Approx): 142 extractions/second
 
-### Constrained Model
+### 限制模型
 Training
 ```
 python run.py --save models/oie_model --mode resume --model_str bert-base-cased --task oie --epochs 16 --gpus 1 --batch_size 16 --optimizer adam --lr 5e-06 --iterative_layers 2 --checkpoint models/warmup_oie_model/epoch=13_eval_acc=0.544.ckpt --constraints posm_hvc_hvr_hve --save_k 3 --accumulate_grad_batches 2 --gradient_clip_val 1 --multi_opt --lr 2e-5 --wreg 1 --cweights 3_3_3_3 --val_check_interval 0.1
@@ -111,14 +110,14 @@ Time (Approx): 142 extractions/second
 
 NOTE: Due to a bug in the code, [link](https://github.com/dair-iitd/openie6/issues/10), we end up using a loss function based only on the constrained loss term and not the original Cross Entropy (CE) loss. It still seems to work well as the warmup model is already trained with the CE loss and the constrained training is initialized from the warmup model.
 
-### Running Coordination Analysis
+### 运行协调分析 Coordination Analysis
 ```
 python run.py --save models/conj_model --mode train_test --model_str bert-large-cased --task conj --epochs 40 --gpus 1 --batch_size 32 --optimizer adamW --lr 2e-05 --iterative_layers 2
 ```
 
 F1: 87.8
 
-### Final Model
+### 最终模型
 
 Running
 ```
